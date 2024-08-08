@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\MasterSalesController;
 use App\Http\Controllers\TransactionController;
 
@@ -43,7 +44,15 @@ Route::prefix('/transaction')->name('transaction.')->group(function(){
         Route::post('/import/', [TransactionController::class, 'import'])->name('import');
         Route::get('/export/', [TransactionController::class, 'export'])->name('export');
         Route::resource('/', TransactionController::class);
+});
 
-
+Route::prefix('/penjualan')->name('penjualan.')->group(function(){
+    Route::put('/{id}', [PenjualanController::class, 'update'])->name('update'); // Update route
+    Route::get('/{id}/edit', [PenjualanController::class, 'edit'])->name('edit'); // New edit route
+    Route::delete('/{id}', [PenjualanController::class, 'destroy'])->name('destroy'); // Destroy route
+    Route::get('datatable', [PenjualanController::class, 'datatable'])->name('datatable');
+    Route::post('/import/', [PenjualanController::class, 'import'])->name('import');
+    Route::get('/export/', [PenjualanController::class, 'export'])->name('export');
+    Route::resource('/', PenjualanController::class);
 });
 

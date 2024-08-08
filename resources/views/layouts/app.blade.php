@@ -104,7 +104,10 @@
                         <a class="nav-link" href="{{ route('master.sales.index')}}">Master Sales</a>
                     </li>
                     <li class="nav-item {{ Route::is('transaction.*') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('transaction.index')}}">Total Transaction</a>
+                        <a class="nav-link" href="{{ route('transaction.index')}}">Total Transaksi</a>
+                    </li>
+                    <li class="nav-item {{ Route::is('penjualan.*') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('penjualan.index')}}">Penjualan</a>
                     </li>
                 </ul>
             </div>
