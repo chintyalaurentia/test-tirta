@@ -211,6 +211,37 @@
             tambahKurangButtons();
         });
 
+        $(document.body).on("click",".hapus",function(e){
+                e.preventDefault();
+
+                const removedCard = $(this).closest('.rowFrekuensi');
+
+                Swal.fire({
+                title: 'Are You sure want to delete?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes!'
+                }).then((result) => {
+                    if (result.value) {
+                        // calculateSubTotal(objRow);
+                        var html = "<input type='hidden' name='deletedRow[]' value='"+removedCard.find(".frekIdx").val()+"'>";
+                        $("#deleteContainer").append(html);
+                        removedCard.remove();
+                        $('.rowFrekuensi').each(function(index) {
+                            const newRow = index + 1;
+                            $(this).find('#titleFrek').text('Sales ' + newRow);
+                        })
+
+                        tambahKurangButtons();
+
+                        // objRow.remove();
+
+                    }
+                })
+        });
+
         $('#formExcel').on('submit', function (e) {
             e.preventDefault();
 

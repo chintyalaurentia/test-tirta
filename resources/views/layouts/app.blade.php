@@ -64,7 +64,7 @@
         }
 
         .btn-success{
-            background-color: #0d8564!important;
+            background-color: #0d4f85!important;
         }
 
         .required {
@@ -72,10 +72,10 @@
         }
 
         .input-group .clear-button {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    cursor: pointer;
-}
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            cursor: pointer;
+        }
 
 
 
@@ -85,24 +85,26 @@
     @yield('css')
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed avian">
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
     <div id="app" class="wrapper">
         <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-primary">
-            <a class="navbar-brand" href="">Navbar</a>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="">
+                <img src="{{ asset('images/logo-tirta.png') }}" alt="Logo" style="height: 50px;">
+            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto"> <!-- Items aligned to the right -->
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    <li class="nav-item {{ Route::is('index') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('index')}}">Home</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {{ Route::is('master.*') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('master.sales.index')}}">Master Sales</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
+                    <li class="nav-item {{ Route::is('transaction.*') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('transaction.index')}}">Total Transaction</a>
                     </li>
                 </ul>
             </div>

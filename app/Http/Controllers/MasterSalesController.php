@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\MasterSales;
+use App\Exports\SalesExport;
 use App\Imports\SalesImport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -112,7 +113,6 @@ class MasterSalesController extends Controller
                 'Message' => $e->getMessage()
             ]);
         }
-
     }
 
     /**
@@ -165,10 +165,6 @@ class MasterSalesController extends Controller
 
 
     public function import(Request $request){
-        // request()->validate([
-        //     'import' => 'required|file|mimetypes:application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/zip',
-        // ]);
-
         try {
             $file = $request->file('excel');
 
@@ -195,5 +191,10 @@ class MasterSalesController extends Controller
             dd($ex);
             return redirect()->back()->withErrors(['import' => $ex->getMessage()]);
         }
+    }
+
+    public function export(Request $request){
+        $dataExport = new SalesExport();
+        return Excel::download($dataExport, 'Sales List.xlsx');
     }
 }

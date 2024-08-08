@@ -12,17 +12,17 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            <h3>Master Sales</h3>
+            <h3>Total Transaction</h3>
         </div>
     </div>
 
     <div class="card">
-        <div class="card-header d-flex align-items-center jusitfy-content-between">Master Sales
+        <div class="card-header d-flex align-items-center jusitfy-content-between">Total Transaction
             <div class="btn-group ml-auto" role="group" aria-label="Basic example">
                 {{-- <button class="btn btn-outline-dark btn-sm" type="button" data-toggle="collapse" data-target="#filters" aria-controls="filters"><i class="fas fa-filter"></i> Filter</button> --}}
                 <button class="btn btn-outline-dark btn-sm" type="button" id="reload"><i class="fa fa-refresh" aria-hidden="true"></i> Reload</button>
-                <button class="btn btn-outline-dark btn-sm excBtn" id="export" role="button" ><i class="fa fa-file-excel-o" aria-hidden="true"></i> Excel</button>
-                <a class="btn btn-dark btn-sm " href="{{ route('master.sales.create')}}" target="" type="button" aria-expanded="false"><i class="fa fa-plus" aria-hidden="true"></i> Create</a>
+                <button class="btn btn-outline-dark btn-sm excBtn" id="export" role="button" ><i class="fa fa-file-pdf-o" aria-hidden="true"></i> PDF</button>
+                <a class="btn btn-dark btn-sm" href="{{ route('master.sales.create')}}" target="" type="button" aria-expanded="false"><i class="fa fa-plus" aria-hidden="true"></i> Create</a>
             </div>
         </div>
 
@@ -64,9 +64,8 @@
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col"  class="text-center align-middle">No</th>
-                        <th scope="col"  class="text-center align-middle">Kode</th>
                         <th scope="col"  class="text-center align-middle">Nama</th>
-                        <th scope="col"  class="text-center align-middle">Action</th>
+                        <th scope="col"  class="text-center align-middle">Nominal</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -81,7 +80,7 @@
 @section('js')
 <script>
     $(document).ready(function(){
-        var baseurl = '{{ route("master.sales.datatable") }}';
+        var baseurl = '{{ route("transaction.datatable") }}';
         let table = $('#data-table').dataTable({
             processing: true,
             orderClasses: false,
@@ -93,46 +92,33 @@
             ajax: {
                 url: baseurl,
                 data: function(d) {
-                    // d.nama = $('#itemFilter').val();
-                    // if($('#startDate').val() === ''){
-                    //     d.startDate = $('#startDate').val();
-                    // }
-                    // else {
-                    //     d.startDate = moment($('#startDate').val(), 'DD/MM/YYYY').format('YYYY-MM-DD');
-                    // }
-                    // if($('#endDate').val() === ''){
-                    //     d.endDate = $('#endDate').val();
-                    // }
-                    // else{
-                    //     d.endDate = moment($('#endDate').val(), 'DD/MM/YYYY').format('YYYY-MM-DD');
-                    // }
+                    d.nama = $('#itemFilter').val();
                 }
             },
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex', className: "text-left align-middle"},
-                {data: 'kode_sales', name: 'kode_sales', orderable: true, searchable: true, className: "align-middle"},
-                {data: 'nama_sales', name: 'nama_sales', className: "text-left align-middle"},
-                {data: 'action', name: 'action', orderable: false, searchable: false, className: "text-center align-middle"},
+                {data: 'kode', name: 'kode', orderable: true, searchable: true, className: "align-middle"},
+                {data: 'nominal', name: 'nominal', className: "text-left align-middle"},
             ],
             drawCallback: function(settings) {
-                $('#startDate, #endDate').off('change').on('change', function() {
-                    var table = $('#data-table').DataTable();
-                    table.draw();
-                });
-                $('#itemFilter').on('change', function() {
-                    var selectedValue = $(this).val();
-                    //clear
-                    if (selectedValue === '') {
-                        var table = $('#data-table').DataTable();
-                        table.draw();
-                    }
-                    //ada value
-                    else {
-                        var table = $('#data-table').DataTable();
-                        table.draw();
-                    }
+                // $('#startDate, #endDate').off('change').on('change', function() {
+                //     var table = $('#data-table').DataTable();
+                //     table.draw();
+                // });
+                // $('#itemFilter').on('change', function() {
+                //     var selectedValue = $(this).val();
+                //     //clear
+                //     if (selectedValue === '') {
+                //         var table = $('#data-table').DataTable();
+                //         table.draw();
+                //     }
+                //     //ada value
+                //     else {
+                //         var table = $('#data-table').DataTable();
+                //         table.draw();
+                //     }
 
-                });
+                // });
             }
         });
 
@@ -181,8 +167,12 @@
         });
 
         $("#export").on("click",function(){
-            window.location.href = "{{ route('master.sales.export') }}";
+            window.location.href = "{{ route('transaction.export') }}";
         })
+
+        $('#reload').on('click', function() {
+            table.api().ajax.reload();
+        });
 
 
 
