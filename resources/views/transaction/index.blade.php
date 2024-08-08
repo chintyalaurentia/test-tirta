@@ -22,7 +22,7 @@
                 {{-- <button class="btn btn-outline-dark btn-sm" type="button" data-toggle="collapse" data-target="#filters" aria-controls="filters"><i class="fas fa-filter"></i> Filter</button> --}}
                 <button class="btn btn-outline-dark btn-sm" type="button" id="reload"><i class="fa fa-refresh" aria-hidden="true"></i> Reload</button>
                 <button class="btn btn-outline-dark btn-sm excBtn" id="export" role="button" ><i class="fa fa-file-pdf-o" aria-hidden="true"></i> PDF</button>
-                <a class="btn btn-dark btn-sm" href="{{ route('master.sales.create')}}" target="" type="button" aria-expanded="false"><i class="fa fa-plus" aria-hidden="true"></i> Create</a>
+                {{-- <a class="btn btn-dark btn-sm" href="{{ route('master.sales.create')}}" target="" type="button" aria-expanded="false"><i class="fa fa-plus" aria-hidden="true"></i> Create</a> --}}
             </div>
         </div>
 
